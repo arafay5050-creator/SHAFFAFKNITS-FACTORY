@@ -1,0 +1,107 @@
+/* ===== Page transitions ===== */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .22s ease both}
+::view-transition-new(root){animation:vt-in .4s ease both}
+@keyframes vt-out{to{opacity:0}}
+@keyframes vt-in{from{opacity:0}}
+
+/* ===== Keyframes ===== */
+@keyframes up{from{opacity:0;transform:translateY(24px)}}
+@keyframes wd{from{opacity:0;transform:translateY(.7em) rotate(4deg)}}
+@keyframes pop{from{opacity:0;transform:scale(.8)}}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -14px}}
+@keyframes wiggle{0%,100%{rotate:0deg}25%{rotate:-8deg}60%{rotate:6deg}}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes stitch{to{stroke-dashoffset:-44}}
+@keyframes slide{to{background-position:66px 0}}
+@keyframes go{to{transform:translateX(-50%)}}
+@keyframes ping{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.22,1.55);opacity:0}}
+@keyframes drift{to{background-position:56px 0}}
+@keyframes blobmorph{0%,100%{border-radius:42% 58% 55% 45%/50% 45% 55% 50%}50%{border-radius:58% 42% 45% 55%/45% 55% 45% 55%}}
+
+/* ===== Scroll progress + header ===== */
+.progress{position:fixed;left:0;top:0;height:4px;width:100%;background:linear-gradient(90deg,var(--gold),var(--coral),var(--teal));transform:scaleX(0);transform-origin:left;z-index:60;pointer-events:none}
+.bar{transition:box-shadow .3s}
+.bar-in{transition:min-height .3s}
+.bar.scrolled{box-shadow:0 8px 28px rgba(15,23,42,.14)}
+.bar.scrolled .bar-in{min-height:60px}
+.logo-sock{transition:transform .4s}
+.logo:hover .logo-mark{animation:wiggle .7s}
+
+/* ===== Hero ===== */
+.hero{position:relative}
+.hero-grid{position:relative;z-index:1}
+.thread{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.thread path{fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.thread .t1{stroke:var(--gold);stroke-width:3;opacity:.55;stroke-dasharray:1;stroke-dashoffset:0;animation:draw 3.2s cubic-bezier(.4,0,.2,1) .5s both}
+.thread .t2{stroke:#5BB4E8;stroke-width:2.5;opacity:.45;stroke-dasharray:12 10;animation:stitch 2.2s linear infinite}
+.wd{display:inline-block;animation:wd .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*.09s + .15s)}
+.js .hero .kicker{animation:up .7s cubic-bezier(.2,.8,.2,1) both}
+.js .hero .lead{animation:up .8s cubic-bezier(.2,.8,.2,1) .55s both}
+.js .hero .btns{animation:up .8s cubic-bezier(.2,.8,.2,1) .75s both}
+.js .hero-art{animation:pop 1s cubic-bezier(.2,.8,.2,1) .35s both;transition:transform .35s ease-out}
+.js .ph .crumb{animation:up .6s both}
+.js .ph .sub{animation:up .8s cubic-bezier(.2,.8,.2,1) .5s both}
+.blob{animation:blobmorph 12s ease-in-out infinite}
+.hs{transition:filter .3s}
+.hs1{animation:float 6.5s ease-in-out infinite}
+.hs2{animation:float 5.5s ease-in-out -2s infinite}
+.hs3{animation:float 7.5s ease-in-out -4s infinite}
+.hs:hover{animation:wiggle .8s}
+.hero .btn.gold{position:relative}
+.hero .btn.gold:after{content:"";position:absolute;inset:-2px;border-radius:999px;border:2px solid var(--gold);animation:ping 2.6s ease-out 2.4s infinite;pointer-events:none}
+
+/* ===== Ticker ===== */
+.belt{background:var(--navy2);overflow:hidden;border-bottom:1px solid #ffffff14}
+.cuff{height:14px;background:repeating-linear-gradient(90deg,var(--accent) 0 14px,var(--navy) 14px 22px,var(--gold) 22px 36px,var(--navy) 36px 44px,var(--coral) 44px 58px,var(--navy) 58px 66px);animation:slide 3s linear infinite}
+.track{display:flex;width:max-content;animation:go 36s linear infinite;color:#CBD5E1;font-weight:600}
+.belt:hover .track,.belt:focus-within .track{animation-play-state:paused}
+.set{display:flex;gap:44px;padding:16px 44px 16px 0;align-items:center}
+.set span{display:inline-flex;align-items:center;gap:44px;white-space:nowrap}
+.set span:after{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
+
+/* ===== Scroll reveal ===== */
+html,body{overflow-x:clip}
+.js [data-r]{opacity:0;transform:translateY(30px);transition:opacity .75s cubic-bezier(.2,.7,.2,1) var(--d,0s),transform .75s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+.js [data-r="l"]{transform:translateX(-44px)}
+.js [data-r="r"]{transform:translateX(44px)}
+.js [data-r="z"]{transform:scale(.9)}
+.js [data-r].in{opacity:1;transform:none}
+
+/* ===== Hover life ===== */
+.tile{will-change:transform}
+.ico{transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.tile:hover .ico{transform:rotate(-8deg) scale(1.12)}
+.more .ic{transition:transform .25s}
+.more:hover .ic{transform:translateX(5px)}
+.btn .ic{transition:transform .25s}
+.btn:hover .ic{transform:translateY(2px)}
+.chip{transition:background .2s,color .2s,border-color .2s,transform .2s}
+.chip:active{transform:scale(.94)}
+.pills li{transition:transform .2s,border-color .2s}
+.pills li:hover{transform:translateY(-3px) rotate(-1.5deg);border-color:var(--accent)}
+.slot{transition:border-color .25s,color .25s,transform .25s}
+.slot:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px)}
+
+/* ===== Timeline + steps draw ===== */
+.tl{position:relative;border-left:0}
+.tl:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--line);transform-origin:top;transition:transform 1.4s cubic-bezier(.4,0,.2,1)}
+.js .tl:not(.in):before{transform:scaleY(0)}
+.steps li{transition:border-color .3s,transform .3s}
+.steps li:hover{transform:translateY(-4px)}
+
+/* ===== CTA drifting stitches ===== */
+.cta{position:relative;overflow:hidden}
+.cta:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.045) 25%,transparent 25% 50%,rgba(255,255,255,.045) 50% 75%,transparent 75%);background-size:56px 56px;animation:drift 5s linear infinite;pointer-events:none}
+.cta .w{position:relative}
+
+/* ===== Reduced motion: everything visible and still ===== */
+@media (prefers-reduced-motion:reduce){
+ .js [data-r]{opacity:1;transform:none;transition:none}
+ .js .tl:not(.in):before{transform:none}
+ .progress{display:none}
+ .belt .track{width:auto;flex-wrap:wrap;justify-content:center;padding:0 24px}
+ .set.dup{display:none}
+ .thread .t1{stroke-dashoffset:0}
+ ::view-transition-old(root),::view-transition-new(root){animation:none}
+}
